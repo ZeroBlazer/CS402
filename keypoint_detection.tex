@@ -26,7 +26,7 @@ Arequipa, PE}
 
 
 \begin{abstract}
-3D keypoint detection plays a fundamental role in the Computer Vision field, detection of these salient points in the local surfaces of a 3D object is important in order to perform certain tasks such as registration, retrieval and simplification. There has been a lot of research in the field of 3D keypoint detection, most of them take a geometrical approach which have a good performance but lack flexibility to adapt to changes such as noise and high curvature points that are not keypoints to human preference. A good approach seems to be machine learning methods that can be trained with human annotated training data. In this paper a new method is proposed using deep neural network with sparse autoencoder as the regression model due to their great ability for feature processing. The analysis shows this method outperforms other methods that are widely used.  
+3D keypoint detection plays a fundamental role in the Computer Vision field, detection of these salient points in the local surfaces of a 3D object is important in order to perform certain tasks such as registration, retrieval and simplification. There has been a lot of research in the field of 3D keypoint detection, most of them take a geometrical approach which have a good performance but lack flexibility to adapt to changes such as noise and high curvature points that are not keypoints to human preference. A good approach seems to be machine learning methods that can be trained with human annotated training data. In this paper a new method is proposed using deep neural network with sparse autoencoder as the regression model due to their great ability for feature processing. The analysis shows this method would outperform other methods that are widely used.  
 \end{abstract}
 
 \maketitle
@@ -60,37 +60,73 @@ former one by avoiding the problems of: Different tasks in different areas
 of the model~\cite{DNN}, false positives obtained from noise or local
 variation and keypoint detection valuable according to human preference. 
 
+The rest of this paper is organized in the following way:
+Section~\ref{RelatedWork} introduces previous work done in the area,
+Section~\ref{Proposal} presents the idea this method is based on. Future
+results will be presented in Section~\ref{Results} and future conclusions
+in Section~\ref{Conclusions}.
 
-% In this paper we extend the work in~\cite{gelenbe06} to study the
-% outcome of strategies that a designated bidder may follow in an
-% English auction, in the presence of a collection of other bidders,
-% under the assumption that this ``special bidder'' (SB) observes
-% the parameters resulting from the auction as a collective (many
-% bidders and the seller) system. Note that in~\cite{gelenbe06}
-% bidders are lumped together in a pool, where everyone shares a
-% similar behaviour; whereas in this work we propose a
-% generalisation in that the SB is allowed to have its own activity
-% (bidding) rate which may differ from the other bidders', and
-% examine how the SB should select its bidding rate in a
-% self-serving manner.
+\section{Related Work} \label{RelatedWork}
+In recent years researchers have proposed several techniques for
+3D keypoint detection. Most of them are based on geometric methods, for
+example Sipiran and Bustos extended the Harris operator for 3D
+meshes~\cite{harris3D}. Lin, Zhu, Zhang and Liu proposed a geometric
+technique based in the 
 
-% We first sketch the model to be studied, and then in Section
-% \ref{Model} we analyse it in detail. The manner in which the model
-% provides performance measures of interest to the SB and to the
-% seller, is discussed in Section \ref{Performance} where we first
-% discuss how the SB can behave in order to optimise outcomes that
-% are in its best interest, and provide  numerical examples to
-% illustrate the approach and the model predictions. We then explore
-% how the SB can try to achieve balance and compete with the other
-% bidders in Section \ref{KeepUp}. Finally Section
-% \ref{Price-Dependent} generalises the analysis to the case where
-% the bidding rates depend on the current price attained in the
-% auction. Conclusions are drawn in Section \ref{Conclusions} where
-% we also suggest further work.
+\section{Proposal} \label{Proposal}
+This work is inspired by the work of~\cite{DNN} by the use of
+sparse autoencoders as the regression model in order to learn features
+from local and global information generated from a human-annotated
+keypoint database. Also this proposal is influenced by~\cite{UnsLearning},
+so for us to achieve the 3D keypoint detection we train a 3-layered locally
+connected sparse autoencoder similarly to their technique, such
+technique's results revealed to be a inexpensive way to develop
+high-level features from unlabeled data, from that study this work
+presents an adapted architecture for 3D meshes. Taking a different approach
+than the other techniques mentioned above, resized and simplified segments
+of the 3D mesh will be used as the input for our Deep Neural Network,
+this will enable our DNN to learn when one of these segments has inside
+a keypoint.
 
+\subsection{Architecture}
+This technique can be seen as a set of sparse deep autoencoders that
+similarly to~\cite{UnsLearning} has two fields in it: local receptive fields,
+pooling normalization (the architecture taken as a base can be seen
+on the Figure~\ref{fig:architecture}). Local receptive fields scale the
+autoencoder to big inputs, connecting the autoencoder's features to a small
+region of the next lower layer. These sublayers are know as filtering and
+pooling.
+
+Originally the neurons in the first sublayer were connected to
+pixels in all input channels~\cite{UnsLearning}, but in order to adapt
+this architecture it is proposed to use the 3D vertices and their
+connectivity information as the input channels and by so adding more
+receptive fields.
+
+\begin{figure}
+\includegraphics[width=0.9\linewidth]{architecture.png}
+\caption{Large scale unsupervised learning architecture \cite{UnsLearning}}
+\label{fig:architecture}
+\end{figure}
+
+\subsection{Training}
+As mentioned before the first layer input...
+
+To train the Deep Neural Network what is to be done at first is to train each
+Sparse Autoencoder and a final logistic regression layer, then following the
+schema from~\cite{DNN} stack the four layers together and backpropagate the
+whole DNN to fine tune it.
+
+The goal of this approach is to reduce the proccessing that is performed,
+instead of evaluating each vertex in the DNN which is expensive, we can
+perform the neccesary calculations just for some samples of the 3D object
+and discard if those samples don't contain any keypoints, in the case we find
+the presence of keypoints we will perform further calculations to choose the
+sample keypoint.
+
+\section{Results} \label{Results}
 
 \section{Conclusions} \label{Conclusions}
-
 
 \ack{This research was undertaken as part of ...}
 
