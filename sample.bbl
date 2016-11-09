@@ -1,0 +1,19 @@
+\begin{thebibliography}{99}
+
+\bibitem{harris3D}
+I. Sipiran, B. Bustos (2011) Harris 3D: a robust extension of the Harris operator for interest point detection on 3D meshes
+\newblock Santiago, Chile: Springer, 2011.
+
+\bibitem{DNN}
+X. Lin, C. Zhu, Q. Zhang y Y. Liu (2016) 3D Keypoint Detection Based on Deep Neural Network with Sparse Autoencoder
+\newblock Chengdu, China: UESTC.
+
+\bibitem{Discrim}
+L. Teran, P. Mordohai (2013) 3D Interest Point Detection via Discriminative Learning
+\newblock Stevens Institute of Technology, EUA, 2013.
+
+\bibitem{UnsLearning}
+Quoc V. Le, Marc' Aurelio Ranzato, Andrew Y. Ng (2012) Building High-level Features Using Large Scale Unsupervised Learning
+\newblock Proceedings of the 29\^{th} International Conference on Machine Learning, UK, 2012.
+
+\end{thebibliography}
