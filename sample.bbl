@@ -16,4 +16,8 @@ L. Teran, P. Mordohai (2013) 3D Interest Point Detection via Discriminative Lear
 Quoc V. Le, Marc' Aurelio Ranzato, Andrew Y. Ng (2012) Building High-level Features Using Large Scale Unsupervised Learning
 \newblock Proceedings of the 29\^{th} International Conference on Machine Learning, UK, 2012.
 
+\bibitem{GMSR}
+X. Lin, C. Zhu, Q. Zhang y Y. Liu (2016) 3D Interest Point Detection Based on Geometric Measures and Sparse Refinement
+\newblock Chengdu, China: UESTC, 2016.
+
 \end{thebibliography}
