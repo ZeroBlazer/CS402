@@ -12,7 +12,7 @@ Universidad Nacional de San Agust\'{i}n,\\
 Arequipa, PE}
 \email{eliasj.puma@gmail.com}
 
-\shortauthors{E. Puma}
+\shortauthors{El\'{i}as Puma}
 
 %\received{00 January 2009}
 %\revised{00 Month 2009}
@@ -39,6 +39,15 @@ the last years with the availability of low-cost 3D capture devices~\cite{harris
 The ability to analyse, proccess and select relevant information
 from them is an active research area. 
 
+\subsection{Keypoint detection} \label{Keypoints}
+There is not a definition of what exactly a keypoint is, but a common
+assumption relates the level of protusion of outstanding local structures
+with the measure of interest of such local structure~\cite{harris3D}.
+We can say then, that a flat or almost flat surfaces aren't keypoints,
+as neither the edges of an object are. Its main caracteristic is its
+invariance to transformations in the object itself.  
+
+\subsection{Approaches}
 3D interest point detection is a difficult task for several reasons~\cite{Discrim, harris3D}. 
 First, there are not any definitions for what a interest point is, 
 most of the approaches consider the high level of protusion in a local
@@ -62,6 +71,8 @@ variation and keypoint detection valuable according to human preference.
 
 The rest of this paper is organized in the following way:
 Section~\ref{RelatedWork} introduces previous work done in the area,
+% Section~\ref{Keypoints} gives a brief definition of what a Keypoint is
+% and the common methods used for their detection.
 Section~\ref{Proposal} presents the idea this method is based on. Future
 results will be presented in Section~\ref{Results} and future conclusions
 in Section~\ref{Conclusions}.
@@ -69,11 +80,14 @@ in Section~\ref{Conclusions}.
 \section{Related Work} \label{RelatedWork}
 In recent years researchers have proposed several techniques for
 3D keypoint detection. Most of them are based on geometric methods, for
-example Sipiran and Bustos extended the Harris operator for 3D
+instance Sipiran and Bustos extended the Harris operator for 3D
 meshes~\cite{harris3D}. Lin, Zhu, Zhang and Liu proposed a geometric
 technique~\cite{GMSR} based in the tangencial planes traced for each vertex and
 other transformations in the mesh some of them can be also found
 in~\cite{DNN}. 
+
+The lack of flexibility of geometric methods led researchers to find new methods
+to detect 3D keypoints.  
 
 \section{Proposal} \label{Proposal}
 This work is inspired by the work of~\cite{DNN} by the use of
