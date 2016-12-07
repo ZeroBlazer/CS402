@@ -426,7 +426,7 @@
     \def\@svsechd{#4{\hskip #1\relax #5}}%
   \fi
   \@xsect{#3}}
-\def\journalname{The Computer Journal}
+\def\journalname{Proyectos II}
 \def\copyrightname{Oxford University Press}
 \def\andname{and}
 \def\ppname{pp}

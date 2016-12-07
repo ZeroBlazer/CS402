@@ -1,23 +1,47 @@
 \begin{thebibliography}{99}
 
 \bibitem{harris3D}
-I. Sipiran, B. Bustos (2011) Harris 3D: a robust extension of the Harris operator for interest point detection on 3D meshes
-\newblock Santiago, Chile: Springer, 2011.
+I. Sipiran, B. Bustos (2011). Harris 3D: a robust extension of the Harris operator for interest point detection on 3D meshes
+\newblock \emph{Santiago, Chile: Springer, 2011.}
 
 \bibitem{DNN}
-X. Lin, C. Zhu, Q. Zhang y Y. Liu (2016) 3D Keypoint Detection Based on Deep Neural Network with Sparse Autoencoder
-\newblock Chengdu, China: UESTC.
+X. Lin, C. Zhu, Q. Zhang y Y. Liu (2016). 3D Keypoint Detection Based on Deep Neural Network with Sparse Autoencoder
+\newblock \emph{Chengdu, China: UESTC.}
 
 \bibitem{Discrim}
-L. Teran, P. Mordohai (2013) 3D Interest Point Detection via Discriminative Learning
-\newblock Stevens Institute of Technology, EUA, 2013.
+L. Teran, P. Mordohai (2013). 3D Interest Point Detection via Discriminative Learning
+\newblock \emph{Stevens Institute of Technology, EUA, 2013.}
 
 \bibitem{UnsLearning}
-Quoc V. Le, Marc' Aurelio Ranzato, Andrew Y. Ng (2012) Building High-level Features Using Large Scale Unsupervised Learning
-\newblock Proceedings of the 29\^{th} International Conference on Machine Learning, UK, 2012.
+Quoc V. Le, Marc' Aurelio Ranzato, Andrew Y. Ng (2012). Building High-level Features Using Large Scale Unsupervised Learning
+\newblock \emph{Proceedings of the 29\^{th} International Conference on Machine Learning, UK, 2012.}
 
 \bibitem{GMSR}
-X. Lin, C. Zhu, Q. Zhang y Y. Liu (2016) 3D Interest Point Detection Based on Geometric Measures and Sparse Refinement
-\newblock Chengdu, China: UESTC, 2016.
+X. Lin, C. Zhu, Q. Zhang y Y. Liu (2016). 3D Interest Point Detection Based on Geometric Measures and Sparse Refinement
+\newblock \emph{Chengdu, China: UESTC, 2016.}
+
+\bibitem{UnstructuredPointCloud}
+J. Garstka, G. Peters (2015). Fast and Robust Keypoint Detection in Unstructured 3-D Point Clouds
+\newblock \emph{Colmar, France: ICINCO, 2015.}
+
+\bibitem{THRIFT}
+A. Flint, A. Dick, A. van den Hengel (2007). Thrift: Local 3D Structure Recognition
+\newblock \emph{South Australia, Australia 2007.}
+
+\bibitem{RepeatabilityAndQuality}
+Mian, A., Bennamoun, M., Owens, R. (2010).  On the repeatability and quality of keypoints for local feature-based  3d  object  retrieval  from  cluttered  scenes.
+\newblock \emph{International Journal of Computer Vision}
+
+\bibitem{Lee01}
+C. H.  Lee,  A.  Varshney,  D.  Jacobs (2005). Mesh  saliency
+\newblock \emph{ACM Transactions on Graphics (Proceedings of SIGGRAPH 2005)}
+
+\bibitem{Sun01}
+J.  Sun,  M.  Ovsjanikov,  and  L.  Guibas (2009).  A  concise  and  provably informative  multi-scale  signature  based  on  heat  diffusion
+\newblock \emph{Proceedings of the Symposium on Geometry Processing}
+
+\bibitem{Ng01}
+A. Ng (2011). Sparse autoencoder
+\newblock \emph{CS294A Lecture notes}
 
 \end{thebibliography}
