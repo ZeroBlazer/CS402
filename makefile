@@ -1,9 +1,13 @@
-CC = pdflatex
+CC1 = pdflatex
+CC2 = bibtex
 
-all: paper
+all: pdf refs
 
-paper: keypoint_detection.tex
-	${CC} keypoint_detection.tex
+pdf: keypoint_detection.tex
+	${CC1} keypoint_detection.tex
+
+refs: keypoint_detection.aux
+	${CC2} keypoint_detection.aux
 
 clean:
 	rm -f *.log *.aux *.vrb *.snm *.out *.nav *.toc

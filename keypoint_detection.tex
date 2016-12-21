@@ -47,14 +47,14 @@ The analysis shows this method would outperform other methods that are widely us
 \section{Introduction}
 Several computer-dependent areas are benefited of the applications
 that 3-D Models have in them. The growth of 3-D data has increased in
-the last years with the availability of low-cost 3-D capture devices~\cite{harris3D}.
+the last years with the availability of low-cost 3-D capture devices~\cite{Sipiran2011}.
 The ability to analyse, proccess and select relevant information
 from them is an active research area. 
 
-3-D interest point detection is a difficult task for several reasons~\cite{Discrim, harris3D}.
+3-D interest point detection is a difficult task for several reasons~\cite{Discrim, Sipiran2011}.
 First, there is not a definition of what exactly a keypoint is, but a common
 assumption relates the level of protusion of outstanding local structures
-with the measure of interest of such local structure~\cite{harris3D}.
+with the measure of interest of such local structure~\cite{Sipiran2011}.
 We can say by so, that in planar sections of an area
 vertices have a low interest level and in local areas with diferent
 structures the interest level will be the opposite, the same with
@@ -72,7 +72,7 @@ The common approach to 3-D keypoint detection has been to use
 geometric properties of the models, although in recent years researchers
 also have developed machine learning techniques that try to outperform the
 former one by avoiding the problems of: Different tasks in different areas
-of the model~\cite{DNN}, false positives obtained from noise or local
+of the model~\cite{Lin2016}, false positives obtained from noise or local
 variation and keypoint detection valuable according to human preference. 
 
 The rest of this paper is organized in the following way:
@@ -123,14 +123,14 @@ formations. The local maxima of the HKS are selected as
 the interest points of the model.
 
 In 2011 Sipiran and Bustos extended the Harris operator for 3-D
-meshes~\cite{harris3D} using an adaptive technique to determine the neighborhood
+meshes~\cite{Sipiran2011} using an adaptive technique to determine the neighborhood
 of a vertex, over which the Harris response on that vertex was calculated.
 Their method was said to be robust to several transformations, using the SHREC
 feature detection and description benchmark to measure their results.
 
 Lin, Zhu, Zhang and Liu proposed a geometric technique~\cite{GMSR} based in the
 tangencial planes traced for each vertex and other transformations in the mesh 
-some of them can be also found in~\cite{DNN}. 
+some of them can be also found in~\cite{Lin2016}. 
 
 The lack of flexibility of some geometric methods led researchers to look for
 new approaches to achieve 3-D keypoint detection.
@@ -189,12 +189,12 @@ Figure~\ref{fig:deep_neural_network}.
 \centering
 \includegraphics[width=0.8\linewidth]{figures/deep_neural_architecture.eps}
 \caption{Deep Neural Network representation,
-composed of three SAEs as the hidden layers~\cite{DNN}}
+composed of three SAEs as the hidden layers~\cite{Lin2016}}
 \label{fig:deep_neural_network}
 \end{figure}
 
 \section{Proposal} \label{Proposal}
-This work is inspired by the work of~\cite{DNN} by the use of
+This work is inspired by the work of~\cite{Lin2016} by the use of
 sparse autoencoders as the regression model in order to learn features
 from local and global information generated from a human-annotated
 keypoint database. Also this proposal is influenced by~\cite{UnsLearning},
@@ -254,7 +254,7 @@ As mentioned before the first layer input...
 
 To train the Deep Neural Network what is to be done at first is to train each
 Sparse Autoencoder and a final logistic regression layer, then following the
-schema from~\cite{DNN} stack the four layers together and backpropagate the
+schema from~\cite{Lin2016} stack the four layers together and backpropagate the
 whole DNN to fine tune it.
 
 The goal of this approach is to reduce the proccessing that is performed,
@@ -275,12 +275,11 @@ sample keypoint.
 \ack{This research was undertaken as part of the motivation received
 from my family and future wife that I probably met already.}
 
-
 \nocite{*}
 
 \bibliographystyle{compj}
+\bibliography{biblio}
 % \bibliography{ModellingBidders}
-\input{sample.bbl}
-
+% \input{sample.bbl}
 
 \end{document}
