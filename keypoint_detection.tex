@@ -48,54 +48,73 @@ The analysis shows this method would outperform other methods that are widely us
 Several computer-dependent areas are benefited of the applications
 that 3-D Models have in them. The growth of 3-D data has increased in
 the last years with the availability of low-cost 3-D capture devices~\cite{Sipiran2011}.
-The ability to analyse, proccess and select relevant information
+The ability to analyse, process and select relevant information
 from them is an active research area. 
 
-3-D interest point detection is a difficult task for several reasons~\cite{Discrim, Sipiran2011}.
-First, there is not a definition of what exactly a keypoint is, but a common
+3-D interest point detection is a difficult task for several reasons~\cite{Sipiran2011, Teran2014}.
+\textit{First}, there is not a definition of what exactly an interest point is, but a common
 assumption relates the level of protusion of outstanding local structures
 with the measure of interest of such local structure~\cite{Sipiran2011}.
-We can say by so, that in planar sections of an area
-vertices have a low interest level and in local areas with diferent
+Therefore, we can say that, planar sections of an area
+vertices have a low interest level and local areas with diferent
 structures the interest level will be the opposite, the same with
 the edges of an object. Its main caracteristic is its
-invariance to transformations in the object itself. Second, vertex 
+invariance to transformations in the object itself. \textit{Second}, vertex 
 density is different for every 3-D model which makes harder the task of
-selecting a local area. Third, information obtained from a 3-D model
+selecting a local area, at least an area that will have inside significant
+information. \textit{Third}, information obtained from a 3-D model
 are only vertex positions and connectivity between them which means
 the interest level will depend only from the information we can
-retrieve from different calculations. These are not the only challenges
-to be faced but are sufficient to explain why this method is prepared to
-handle these difficulties. 
+retrieve from different calculations. These are not the only present challenges
+but are sufficient to explain the reason this method is prepared to
+handle these difficulties.
 
-The common approach to 3-D keypoint detection has been to use 
-geometric properties of the models, although in recent years researchers
-also have developed machine learning techniques that try to outperform the
-former one by avoiding the problems of: Different tasks in different areas
-of the model~\cite{Lin2016}, false positives obtained from noise or local
-variation and keypoint detection valuable according to human preference. 
+Previously the common approach to 3-D keypoint detection was
+centered in calculating geometric properties of the models, although
+in recent years researchers also developed machine learning techniques
+that with the objective to outperform the former ones by handling the
+problems of: Different calculations in different areas of the model~\cite{Lin2016},
+false positives obtained from noise or local variation and keypoint
+detection valuable according to human preference. 
+
+Our algorithm extends the work done with machine-learning methods,
+and introduces a new architecture for a more efficient Deep Neural Network
+making use of Sparse Autoencoders that provides better distributed input
+nodes, and enables it to learn more interesting features from 3-D models
+that were processed beforehand (\textit{k}-ring analysis, best fitting
+calculation~\cite{Sipiran2011} and mesh simplification~\cite{Lee2005}).
+The processing done before a local area of the 3-D model is put as the
+entry to the DNN improves the efficiency of the training proccess by:
+(1) Reducing the number of inputs to the DNN, (2) reducing the number of
+analysed vertices, (3) making the keypoint detection dependent to the
+model size and (4) making it invariant to the model position. 
+
+Although our experimentation couldn't reach the state of the method proposed
+here, we present an approximate implementation that sustains our proposal that
+a well-trained neural network can detect keypoints independently to the position
+or transformations a model can suffer before being put to be processed. 
 
 The rest of this paper is organized in the following way:
 Section~\ref{RelatedWork} introduces previous work done in the area,
 In section~\ref{NeuralNetworkIntro} we explain the basic principles to
 build a Deep Neural Network using sparse autoencoders.
-Section~\ref{Proposal} presents the idea this method is based on. Future
-results will be presented in Section~\ref{Results} and future conclusions
-in Section~\ref{Conclusions}.
+Section~\ref{Proposal} presents the idea this method is based on. Results
+are presented in Section~\ref{Results} and conclusions in
+Section~\ref{Conclusions}.
 
 \section{Related Work} \label{RelatedWork}
 In recent years researchers have proposed several techniques for
 3-D keypoint detection. Most of them are based on geometric methods,
-that work on meshes or use surface reconstruction~\cite{UnstructuredPointCloud}.
+that work on meshes or use surface reconstruction~\cite{garstka2015fast}.
 Techniques that follow this approach will be introduced below:
 
-Lee~\cite{Lee01} addresses interest point detection through the
+Lee~\cite{Lee2005} addresses interest point detection through the
 use of local curvature estimates together with a center
 surround scheme at multiple scales. The total saliency of
 a vertex is defined as the sum of Difference of Gaussian
 (DoG) operators over all scales.
 
-The THRIFT algorithm~\cite{THRIFT} is a 3-D extension of 2D algorithms
+The THRIFT algorithm~\cite{flint2007thrift} is a 3-D extension of 2D algorithms
 like SIFT and SURF. They divide the spatial space by a uniform voxel grid
 and calculate a normalized quantity $D$ for each voxel. To construct a
 density scale-space Flint et al. convolve $D$ with a series of 3-D
@@ -106,7 +125,7 @@ at each point of the scale space. Within the resulting $3\times3\times3\times3$
 matrix, a non maximal suppression reduces the entries to local maxima, which become
 interest points.
 
-Mian~\cite{RepeatabilityAndQuality} related the repeatability of keypoints
+Mian~\cite{mian2010repeatability} related the repeatability of keypoints
 (extracted from partial views of an object) with a quality measure based
 upon principal curvatures. For each point $\bm{p}$ they rotate
 the local point cloud neighborhood in order to align its normal vector $n_{\bm{p}}$
@@ -114,7 +133,7 @@ to the $z$-axis. To calculate the surface variation they apply a principal
 component analysis to the oriented point cloud and use the ratio between the
 first two principal axes of the local surface as measure to extract the 3-D keypoints.
 
-Sun~\cite{Sun01} apply the Laplace-Beltrami operator over
+Sun~\cite{sun2009concise} apply the Laplace-Beltrami operator over
 the mesh to obtain its Heat Kernel Signature (HKS). The
 HKS captures neighborhood structure properties which
 are manifested during the heat diffusion process on the
@@ -128,7 +147,7 @@ of a vertex, over which the Harris response on that vertex was calculated.
 Their method was said to be robust to several transformations, using the SHREC
 feature detection and description benchmark to measure their results.
 
-Lin, Zhu, Zhang and Liu proposed a geometric technique~\cite{GMSR} based in the
+Lin, Zhu, Zhang and Liu proposed a geometric technique~\cite{Lin2016SparseRefinement} based in the
 tangencial planes traced for each vertex and other transformations in the mesh 
 some of them can be also found in~\cite{Lin2016}. 
 
@@ -170,7 +189,7 @@ where,
 \begin{figure}
 \centering
 \includegraphics[width=0.58\linewidth]{figures/autoencoder.eps}
-\caption{Representation of an autoencoder~\cite{Ng01}}
+\caption{Representation of an autoencoder~\cite{Ng2011}}
 \label{fig:autoencoder}
 \end{figure}
 
@@ -197,7 +216,7 @@ composed of three SAEs as the hidden layers~\cite{Lin2016}}
 This work is inspired by the work of~\cite{Lin2016} by the use of
 sparse autoencoders as the regression model in order to learn features
 from local and global information generated from a human-annotated
-keypoint database. Also this proposal is influenced by~\cite{UnsLearning},
+keypoint database. Also this proposal is influenced by~\cite{Le2013},
 so for us to achieve the 3-D keypoint detection we train a 3-layered locally
 connected sparse autoencoder similarly to their technique, such
 technique's results revealed to be a inexpensive way to develop
@@ -213,7 +232,7 @@ One of the objectives of this research is to reduce the amount of data
 that is processed to detect 3-D keypoints, to accomplish that we propose 
 to simplify the input our Deep Neural Network receives. Several approaches
 have been proposed and discussed, we make use of Mesh Saliency's
-approach~\cite{Lee01}: Guide the simplification proccess through mesh
+approach~\cite{Lee2005}: Guide the simplification proccess through mesh
 curvature obtained from local areas using a center-surround mechanism
 to identify regions that are different from their local context. An example
 is seen in Figure~\ref{fig:simplification}.
@@ -223,13 +242,13 @@ is seen in Figure~\ref{fig:simplification}.
 \includegraphics[width=1\linewidth]{figures/mesh_simplification.png}
 \caption{Saliency-based weights and quality of a 99\% simplification
 for three choices of the simplification weights: (a) Original mesh saliency,
-(b) amplified mesh saliency and (c) smoothed and amplified mesh saliency~\cite{Lee01}}
+(b) amplified mesh saliency and (c) smoothed and amplified mesh saliency~\cite{Lee2005}}
 \label{fig:simplification}
 \end{figure}  
 
 \subsection{Architecture}
 This technique can be seen as a set of sparse deep autoencoders that
-similarly to~\cite{UnsLearning} has two fields in it: local receptive fields,
+similarly to~\cite{Le2013} has two fields in it: local receptive fields,
 pooling normalization (the architecture taken as a base can be seen
 on the Figure~\ref{fig:architecture}). Local receptive fields scale the
 autoencoder to big inputs, connecting the autoencoder's features to a small
@@ -237,7 +256,7 @@ region of the next lower layer. These sublayers are know as filtering and
 pooling.
 
 Originally the neurons in the first sublayer were connected to
-pixels in all input channels~\cite{UnsLearning}, but in order to adapt
+pixels in all input channels~\cite{Le2013}, but in order to adapt
 this architecture it is proposed to use the 3-D vertices and their
 connectivity information as the input channels and by so adding more
 receptive fields.
@@ -245,7 +264,7 @@ receptive fields.
 \begin{figure}
 \centering
 \includegraphics[width=0.95\linewidth]{figures/architecture.png}
-\caption{Large scale unsupervised learning architecture \cite{UnsLearning}}
+\caption{Large scale unsupervised learning architecture \cite{Le2013}}
 \label{fig:architecture}
 \end{figure}
 
@@ -265,12 +284,119 @@ the presence of keypoints we will perform further calculations to choose the
 sample keypoint.
 
 \section{Results} \label{Results}
+To evaluate the performance of this keypoint detector we will compare it
+with five state-of-the-art methods as did in~\cite{Lin2016}, they are:
+Harris 3D~\cite{Sipiran2011}, HKS, Salient Points, Mesh Saliency~\cite{Lee2005}
+and Scale Dependent Corners.
 
-\subsection{Experiments}
+\subsection{The Data Sets}
+In~\cite{Teran2014}, Data sets from Dutagaci were used to train their 
+machine learning tree model. Those models were organized in two different
+data sets: Data Set A and Data Set B, having 24 and 43 models respectively,
+were users were to click on the most interesting points of the models.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.75\linewidth]{figures/ground_truth.png}
+\caption{Annotated points for a teddy bear model using four different
+$\sigma / n$ clustering parameters~\cite{Teran2014}.}
+\label{fig:ground_truth_clustering}
+\end{figure}
+
+Data Set A had 23 people performing the annotations, and Data Set B had
+16. There were some variances in the annotation, user clicks were clustered
+using geodesic distances~\cite{surazhsky2005fast} to improve the consensus.
+An example of the clustering with different parameters is observer at
+Figure~\ref{fig:ground_truth_clustering}. We will use this data set to
+train our Deep Neural Network.
 
 \subsection{Evaluation criteria}
+Datagaci also proposed a new criteria for performance evaluation, he stated
+that a keypoint is rightly identified if the geodesic distance between the
+point given by the algorithm and the keypoint obtained from the dataset is
+less than an error tolerance.
+
+He also defined the Intersection Over Union (IOU) criterion for object
+detection in images. It is calculated with the equation (\ref{eq:IOU}).
+
+\begin{equation} \label{eq:IOU}
+IOU(r) = \frac{TP}{FN + FP + TP}
+\end{equation}
+
+Let $N_{C}$ be the number of correctly detected points and $N_{A}$
+represent the number of detected interest points by the algorithm,
+$FP = N_{A} - N_{C}$ is the number of false positives and $FP = N_{G} - N_{C}$
+is the number of false negatives. $TP = N_{C}$ being the true positives.
+$N_{G}$ is the number of ground truth points.
+
+\subsection{Results}
+% In this section, we will present the results for this algorithm evaluating
+% both, Data Set A and Data Set B with the evaluation criteria described above,
+Our results are based in a implementation of a method similar to the proposed
+in this paper: Similar to~\cite{Lin2016}, we select two thirds of Data Sets A
+and B to train our Neural Network, and the remaining third of each dataset is
+used for testing. Our Neural Network is composed of a layer trained through 
+linear regresion linked to another logistic layer that retrieves a value that
+represents the likelyhood of one vertex to be a keypoint, the first layer input
+dimensions are: $50 \times 50 $, the output
+has a dimension of: $7 \times 7$ that is the size of the input for the logistic layer,
+for each model we count with the positions of the human-annotated keypoints, for
+this experiment we limit the processing to evaluate each one of the vertices of
+the model, we mark as a keypoint to the closest vertex to these different positions,
+this enables the DNN to learn some features but with the experiments we confirmed 
+our assumptions that there would be several vertices closed to each other marked as
+keypoints. At first we calculate the $V_{k}(v)$ neighborhood for each vertex,
+this is the \textit{k}-ring of this vertex using 7 as $k$, then we calculate the
+centroid of this sub-mesh to translate the set of points to a impartial position,
+where we apply Principal Component Analysis to calculate the best fitting plane,
+we achieve that by finding the less significative component and transform this into
+a 2-D plane that is the entry for our DNN, after a training of seven hours in a
+core i5 computer with no GPU processing enabled, we stored the values obtained
+from the logistic layer using the testing models and picked only the vertices with
+the highest obtained values, we present two examples of the keypoints detected over
+a model with transformations in Figure~\ref{fig:result_meshes} and the
+comparatives using IOU criteria in Table~\ref{tbl:dnn_features}.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\linewidth]{figures/experiment_meshes.pdf}
+\caption{Detected interest points in (a) the model in a null position and (b)
+the model with an scaling transformation.}
+\label{fig:result_meshes}
+\end{figure}
+
+\begin{table}
+\centering
+\begin{tabular}{cccc}
+\hline
+                    &	$IOU$	    &	$FNE$	        &	$FPE$	  \\
+\cline{1-4}
+3D-Harris			& 0.102         &	0.343	        &	0.879	  \\
+HKS					& 0.216         &	0.530	        &	0.530	  \\
+DNN	                & 0.275	        &	0.561	        &	0.561	  \\
+\textit{Our method} & \textbf{0.071}&	\textbf{0.211}  &	\textbf{0.915}	  \\
+
+\hline
+\end{tabular}
+\caption{Average IOU, FNE, FPE values on the test dataset.}
+\label{tbl:dnn_features}
+\end{table}
+
+As seen in the results, we reached a good performance even when it doesn't
+outperform the state-of-the-art current methods it is able to detect a good
+amount of interest points with a implementation that roughly approximates to
+the method proposed, with the right clustering process these values would
+present a greater improvement.
 
 \section{Conclusions} \label{Conclusions}
+We presented a new approach to detect keypoints of a 3D model making use of
+machine learning, specifically autoencoders in deep neural networks, to have
+a Multilayer Deep Neural Network trained with local surfaces of simplified
+meshes of models found in human annotated keypoint Data Sets, this approach
+leads to a simplification in the proccessing to be done previous to the training,
+as well as this trained DNN will be able to perform the detection of keypoints
+depending of the size of the object making it suitable compared to the visual 
+characteristics humans notice in these models. 
 
 \ack{This research was undertaken as part of the motivation received
 from my family and future wife that I probably met already.}
